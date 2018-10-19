@@ -1,0 +1,308 @@
+#include<conio.h>
+#include<graphics.h>
+#include<stdio.h>
+#include<dos.h>
+#include<stdlib.h>
+#include<time.h>
+void main()
+{
+  int i,x=0,a=0,z=0,x2,y2;
+  char ch=' ',arr[10];
+  int gdriver,gmode=DETECT,y[9],f=0,z1,z2,z3,z4,z5,g=0,j,flag[10]={0,0,0,0,0,0,0,0,0,0};
+  randomize();
+  z1=-1*(rand()%31)+245;
+  z2=-1*(rand()%31)+245;
+  z3=-1*(rand()%41)+245;
+  z4=-1*(rand()%71)+245;
+  z5=-1*(rand()%91)+245;
+  initgraph(&gmode, &gdriver, "C:\TC\BGI");
+  x2=getmaxx();
+  y2=getmaxy();
+  clearviewport();
+  setbkcolor(0);
+  setcolor(8);
+
+  for( i=0;i<=540;i++)                             /*GAME ENGINE START*/
+  {
+
+    setviewport(0,111,x2,260,0);
+    clearviewport();
+    setviewport(0,0,x2,y2,0);                    /*PLANET PRODUCTION*/
+    setcolor(6);
+    setfillstyle(1,6);
+    fillellipse(getmaxx()/2,0,getmaxx(),110);
+    setcolor(8);                                /*UFO PRODUCTION*/
+    setfillstyle(1,8);
+    fillellipse(50+i,250+x,45,5);
+    arc(50+i,245+x,0,180,10);
+    arc(50+i,245+x,0,180,11);
+    arc(50+i,245+x,0,180,12);
+    setfillstyle(1,9);
+    floodfill(50+i,244+x,8);
+    setcolor(8);
+    line(50+i-15,250+x+4,50+i-12,250+x+9);
+    line(50+i-12,250+x+9,50+i+12,250+x+9);
+    line(50+i+12,250+x+9,50+i+15,250+x+4);
+    setfillstyle(1,8);
+    floodfill(50+i+2,250+x+6,8);
+    if(i%75==0)
+    { 
+      y[f]=250+x;
+      f++;
+    }
+    setcolor(BLUE);                                       /*BULLET PRODUCTION ACCORDING TO RANDOM VALUE*/
+    line(getmaxx()-15-3*i-325,z1,getmaxx()-3*i-325,z1);
+    line(getmaxx()-3*i-15-125,z2,getmaxx()-3*i-125,z2);
+    line(getmaxx()-3*i-15+75,z3,getmaxx()-3*i+75,z3);
+    line(getmaxx()-3*i-15+275,z4,getmaxx()-3*i+275,z4);
+    line(getmaxx()-3*i-15+475,z5,getmaxx()-3*i+475,z5);
+    if(getpixel(50+i,250+x-18)==6)                        /*CRASHING TO THE PLANET*/
+    {
+      g=1;
+      break;
+    }
+    if( (getmaxx()-15-3*i-1-325)>=0&&(getmaxx()-15-3*i-1-325)<=getmaxx())  /*BULLET HIT*/
+    if(getpixel(getmaxx()-15-3*i-1-325,z1)==DARKGRAY)
+    {
+      g=1;flag[0]=1;
+      break;
+    }
+    if((getmaxx()-1-3*i-15-125)>=0&&(getmaxx()-1-3*i-15-125)<=getmaxx())
+    if (getpixel(getmaxx()-1-3*i-15-125,z2)==DARKGRAY)
+    {
+      g=1; flag[1]=1;
+      break;
+    }
+    if((getmaxx()-3*i-15-1+75)>=0&&(getmaxx()-3*i-15-1+75)<=getmaxx())
+    if (getpixel(getmaxx()-3*i-15-1+75,z3)==DARKGRAY)
+    {
+      g=1;
+      flag[2]=1;
+      break;
+    }
+    if( (getmaxx()-3*i-15-1+275)>=0&&(getmaxx()-3*i-15-1+275)<=getmaxx())
+    if (getpixel(getmaxx()-3*i-15-1+275,z4)==DARKGRAY)
+    {
+      g=1;
+      flag[3]=1;
+      break;
+    }
+    if((getmaxx()-3*i-15-1+475)>=0&&(getmaxx()-3*i-15-1+475)<=getmaxx())
+    if(getpixel(getmaxx()-3*i-15-1+475,z5)==DARKGRAY)
+    {
+      g=1;
+      flag[4]=1;
+      break;
+    }
+    if(f>1)
+    {
+      line(getmaxx()-3*i-15+660,y[1],getmaxx()-3*i+660,y[1]);
+      if((getmaxx()-3*i-15-1+660)>=0&&(getmaxx()-3*i-15-1+660)<=getmaxx())
+      if(getpixel(getmaxx()-3*i-15-1+660,y[1])==DARKGRAY)
+      {
+        g=1;
+        flag[5]=1;
+        break;
+      }
+    }
+    if(f>2)
+    {
+      line(getmaxx()-3*i-15+860,y[2],getmaxx()-3*i+860,y[2]);
+      if((getmaxx()-3*i-15+860-1)>=0&&(getmaxx()-3*i-15+860-1)<=getmaxx())
+      if(getpixel(getmaxx()-3*i-15+860-1,y[2])==DARKGRAY)
+      {
+        g=1;
+        flag[6]=1;
+        break;
+      }
+    }
+    if(f>3)
+    {
+      line(getmaxx()-3*i-15+1060,y[3],getmaxx()-3*i+1060,y[3]);
+      if((getmaxx()-3*i-15-1+1060)>=0&&(getmaxx()-3*i-15-1+1060)<=getmaxx())
+      if(getpixel(getmaxx()-3*i-15-1+1060,y[3])==DARKGRAY)
+      { 
+        g=1;
+        flag[7]=1;
+        break;
+      }
+    }
+    if(f>4)
+    {
+      line(getmaxx()-3*i-15+1260,y[4],getmaxx()-3*i+1260,y[4]);
+      if((getmaxx()-3*i-15-1+1260)>=0&&(getmaxx()-3*i-15-1+1260)<=getmaxx())
+      if(getpixel(getmaxx()-3*i-15-1+1260,y[4])==DARKGRAY)
+      {
+        g=1;
+        flag[8]=1;
+        break;
+      }
+    }
+   if(f>5)
+   {
+      line(getmaxx()-3*i-15+1460,y[5],getmaxx()-3*i+1460,y[5]);
+      if((getmaxx()-3*i-15+1460-1)>=0&&(getmaxx()-3*i-15+1460-1)<=getmaxx())
+      if(getpixel(getmaxx()-3*i-15+1460-1,y[5])==DARKGRAY)
+      {
+        g=1;flag[9]=1;
+        break;
+      }
+   }
+  setcolor(8);
+  delay(20);
+  if(kbhit())
+   {
+      ch=getch();
+      if(ch=='w')
+      {
+        sound(800);
+        delay(7);
+        nosound();
+        a+=56;
+      }
+    }
+    if(ch!=' ')                              /*HOPPING*/
+    {
+      if(a!=0)
+      {
+        x-=2;
+        a-=2;
+      }
+      if(a==0)
+      {
+        x=x+2;
+      }
+      if(x==0)
+        ch=' ';
+    }
+    itoa(i,arr,10);
+    outtextxy(10,400,"Score:");
+    setviewport(58,390,90,410,0);
+    clearviewport();
+    setviewport(0,0,x2,y2,0);
+    outtextxy(60,400,arr);
+  }
+  if(g==1)                                    /*BLAST*/
+  {
+    for(j=0;j<=15;j+=2)
+    {
+      sound(175-5*z);
+      setviewport(0,111,x2,260,0);
+      clearviewport();
+      setviewport(0,0,x2,y2,0);
+      setcolor(6);
+      setfillstyle(1,6);
+      fillellipse(getmaxx()/2,0,getmaxx(),110);
+      setcolor(BLUE);
+      if(!flag[0])
+      line(getmaxx()-15-3*i-325,z1,getmaxx()-3*i-325,z1);
+      if(!flag[1])
+      line(getmaxx()-3*i-15-125,z2,getmaxx()-3*i-125,z2);
+      if(!flag[2])
+      line(getmaxx()-3*i-15+75,z3,getmaxx()-3*i+75,z3);
+      if(!flag[3])
+      line(getmaxx()-3*i-15+275,z4,getmaxx()-3*i+275,z4);
+      if(!flag[4])
+      line(getmaxx()-3*i-15+475,z5,getmaxx()-3*i+475,z5);
+      if(f>1)
+      {
+        if(!flag[5])
+        line(getmaxx()-3*i-15+660,y[1],getmaxx()-3*i+660,y[1]);
+      }
+      if(f>2)
+      {
+        if(!flag[6])
+        line(getmaxx()-3*i-15+860,y[2],getmaxx()-3*i+860,y[2]);
+      }
+      if(f>3)
+      {
+        if(!flag[7])
+        line(getmaxx()-3*i-15+1060,y[3],getmaxx()-3*i+1060,y[3]);
+      }
+      if(f>4)
+      {
+        if(!flag[8])
+        line(getmaxx()-3*i-15+1260,y[4],getmaxx()-3*i+1260,y[4]);
+      }
+      if(f>5)
+      {
+        if(!flag[9])
+        line(getmaxx()-3*i-15+1460,y[5],getmaxx()-3*i+1460,y[5]);
+      }
+      if(j>5)
+      {
+        setcolor(14);
+        setfillstyle(1,14);
+        ellipse(50+i,250+x,0,360,10+j,10-j/5);
+        ellipse(50+i,250+x,0,360,10+2*j,17-j/5);
+        floodfill(50+i-11-j,250+x-11+j/5,14);
+        z++;
+        delay(50);
+      }
+      setcolor(12);
+      if(j<5)
+      circle(50+i,250+x,10+j);
+      else
+      circle(50+i,250+x,10+5-z);
+      setfillstyle(1,12);
+      floodfill(50+i,250+x,12);
+      delay(10);
+    }
+  }
+  nosound();
+  if(g==1)
+  {
+    clearviewport();
+    setcolor(6);
+    setfillstyle(1,6);
+    fillellipse(getmaxx()/2,0,getmaxx(),110);
+    setcolor(BLUE);
+    if(!flag[0])
+    line(getmaxx()-15-3*i-325,z1,getmaxx()-3*i-325,z1);
+    if(!flag[1])
+    line(getmaxx()-3*i-15-125,z2,getmaxx()-3*i-125,z2);
+    if(!flag[2])
+    line(getmaxx()-3*i-15+75,z3,getmaxx()-3*i+75,z3);
+    if(!flag[3])
+    line(getmaxx()-3*i-15+275,z4,getmaxx()-3*i+275,z4);
+    if(!flag[4])
+    line(getmaxx()-3*i-15+475,z5,getmaxx()-3*i+475,z5);
+    if(f>1)
+    {
+      if(!flag[5])
+      line(getmaxx()-3*i-15+660,y[1],getmaxx()-3*i+660,y[1]);
+    }
+    if(f>2)
+    {
+      if(!flag[6])
+      line(getmaxx()-3*i-15+860,y[2],getmaxx()-3*i+860,y[2]);
+    }
+    if(f>3)
+    {
+      if(!flag[7])
+      line(getmaxx()-3*i-15+1060,y[3],getmaxx()-3*i+1060,y[3]);
+    }
+    if(f>4)
+    {
+      if(!flag[8])
+      line(getmaxx()-3*i-15+1260,y[4],getmaxx()-3*i+1260,y[4]);
+    }
+    if(f>5)
+    {
+      if(!flag[9])
+      line(getmaxx()-3*i-15+1460,y[5],getmaxx()-3*i+1460,y[5]);
+    }
+    setcolor(8);
+    outtextxy(10,400,"Score:");
+    setviewport(58,390,90,410,0);
+    clearviewport();
+    setviewport(0,0,x2,y2,0);
+    outtextxy(60,400,arr);
+  }
+  setcolor(RED);
+  outtextxy(300,300,"GAME OVER");
+  getch();
+  closegraph();
+}
+
+
